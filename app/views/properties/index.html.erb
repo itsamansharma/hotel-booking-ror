@@ -1,0 +1,43 @@
+<p style="color: green"><%= notice %></p>
+
+<h1> <%= current_user.name %> Properties</h1>
+<%= button_to 'sign out', destroy_user_session_path, method: :delete%>
+
+<!-- <div id="properties">
+  <%# @properties.each do |property| %>
+    <%#= render property %>
+    <p>
+      <%#= link_to "Show this property", property %>
+      <%#= link_to "owner booking", owner_bookings_property_path(property.id) %>
+    </p>
+  <%#end %>
+
+</div> -->
+
+<table>
+    <thead>
+      <tr>
+        <th>property name</th>
+        <th> address</th>
+        <th> price</th>
+        <th> pin code</th>
+      </tr>
+    </thead>
+  <% @properties.each do |p| %>
+    <tbody>
+      <tr>
+        <td><%= p.property_name %></td>
+        <td><%= p.address %></td>
+        <td><%= p.price %></td>
+        <td><%= p.pin %></td>
+        <td><%= link_to "Show this property", p %></td>
+        <td><%= link_to "owner booking", owner_bookings_property_path(p.id) %></td>
+
+      </tr>
+    </tbody>
+    <%end%>
+  </table>
+  <%= link_to "New property", new_property_path %>
+  
+
+

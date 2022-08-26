@@ -1,0 +1,28 @@
+
+<h1>Property listing here</h1>
+
+<div id="properties">
+	<%= button_to 'sign out', destroy_user_session_path, method: :delete%>
+	<table>
+		<thead>
+			<tr>
+				<th>property name</th>
+				<th> address</th>
+				<th> price</th>
+				<th> pin code</th>
+			</tr>
+		</thead>
+		<% @property.each do |p| %>
+		<tbody>
+			<tr>
+				<td><%= p.property_name %></td>
+				<td><%= p.address %></td>
+				<td><%= p.price %></td>
+				<td><%= p.pin %></td>
+				<td><%= link_to "Book Now", new_booking_path(property_id: p.id) %></td>
+			</tr>
+		</tbody>
+		<%end%>
+	</table>
+		
+</div>
