@@ -32,6 +32,18 @@
   </div>
 
   <div>
+    <%= form.label :property_inactive?, style: "display: block" %>
+    <%#= form.check_box :inactive %>
+    <%= form.check_box :inactive, {checked: false, checked_value:true, unchecked_value: false}  %>
+
+    <%#= form.check_box :inactive, { checked: true }, 'yes', 'no'  %>
+
+  </div>
+
+  <br>
+  <br>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

@@ -6,12 +6,12 @@ class ApplicationController < ActionController::Base
 
 	def after_sign_in_path_for(resource)
        
-    if current_user.roles.first.role_name == "customer"
-        return allprop_path
-    else 
-        return properties_path
-    end 
-end
+        if current_user.roles.first.role_name == "customer"
+            return allprop_path
+        else 
+            return properties_path
+        end 
+    end
 
 	protected
   		def config_params

@@ -3,11 +3,15 @@ class PropertiesController < ApplicationController
 
   # GET /properties or /properties.json
   def index
-    @properties = current_user.properties.all
+    if user_signed_in?
+      @properties = current_user.properties.all
+    else
+      redirect_to '/'
+    end
   end
 
   def allprop
-    @property = Property.all
+    @property = Property.where(inactive:false)
   end
 
   # GET /properties/1 or /properties/1.json
@@ -73,6 +77,6 @@ class PropertiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def property_params
-      params.require(:property).permit(:property_name, :address, :price, :pin)
+      params.require(:property).permit(:property_name, :address, :price, :pin, :inactive)
     end
 end
