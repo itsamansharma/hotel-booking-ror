@@ -3,7 +3,11 @@ class BookingsController < ApplicationController
 
   # GET /bookings or /bookings.json
   def index
-    @bookings = Booking.all
+     if user_signed_in?
+      @bookings = Booking.all
+    else
+      redirect_to '/'
+    end
   end
 
   # GET /bookings/1 or /bookings/1.json
@@ -26,22 +30,43 @@ class BookingsController < ApplicationController
   end
 
   # POST /bookings or /bookings.json
+
+  # if @message.save
+  #   flash.now[:notice] = 'Message sent!'
+  # else
+  #   flash.now[:alert] = 'Error while sending message!'
+  # end
+
   def create
     @booking = Booking.new(booking_params)
-    # @property.user_id=current_user.id
-    @booking.user_id=current_user.id
-    # @booking.popperty_id=current_user.property.id
 
+    if @booking.start_date && @booking.end_date
 
-    respond_to do |format|
-      if @booking.save
-        format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
-        format.json { render :show, status: :created, location: @booking }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
+      if(@booking.start_date >= Date.today && @booking.end_date > @booking.start_date)
+        flash.now[:alert] = "correct format"
+        logger.info "this is correct format....."
+
+        @booking.user_id=current_user.id
+
+        respond_to do |format|
+          if @booking.save
+            format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
+            format.json { render :show, status: :created, location: @booking }
+          else
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @booking.errors, status: :unprocessable_entity }
+          end
+        end
+
+      else 
+        flash.now[:alert] = "wrong format"
+
+        logger.info "this is wrong format....."
       end
     end
+
+
+    
   end
 
   # PATCH/PUT /bookings/1 or /bookings/1.json
@@ -76,11 +101,6 @@ class BookingsController < ApplicationController
       @booking = Booking.find(params[:id])
     end
 
-    # def check 
-    #   if !user_signed_in?
-    #     redirect_to "/users/sign_in"
-    #   end
-    # end
 
     # Only allow a list of trusted parameters through.
     def booking_params
