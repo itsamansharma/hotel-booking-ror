@@ -1,0 +1,40 @@
+<h1> <%= current_user.name %> Bookings</h1>
+<p style="color: green"><%= notice %></p>
+
+<!-- 
+<div id="mybookings">
+  <#% @mybookings.each do |booking| %>
+    <%#= render booking %>
+    <p>
+      <%#= link_to "Show this booking", booking %>
+    </p>
+  <#% end %>
+</div>
+ -->
+
+
+
+<table>
+    <thead>
+      <tr>
+        <th>property name</th>
+        <th> price </th>
+        <th> start date</th>
+        <th> end date</th>
+      </tr>
+    </thead>
+   <% @mybookings.each do |booking| %>
+    <tbody>
+      <tr>
+        <td><%= booking.property.property_name %></td>
+        <td><%= booking.price %></td>
+        <td><%= booking.start_date %></td>
+        <td><%= booking.end_date %></td>
+        
+      </tr>
+    </tbody>
+    <%end%>
+  </table>
+
+
+<%= link_to "New booking", new_booking_path %>

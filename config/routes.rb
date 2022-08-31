@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
-
+  get 'my_bookings', to:'bookings#my_bookings'
   get 'allprop', to:'properties#allprop'
   # get 'property bookings', to:'bookings#owner_booking'
 

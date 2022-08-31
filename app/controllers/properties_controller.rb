@@ -22,6 +22,7 @@ class PropertiesController < ApplicationController
     @bookings = @property.bookings
   end
 
+  
   # GET /properties/new
   def new
     @property = Property.new

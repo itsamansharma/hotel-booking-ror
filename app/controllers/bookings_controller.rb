@@ -5,14 +5,25 @@ class BookingsController < ApplicationController
   def index
      if user_signed_in?
       @bookings = Booking.all
+      # flash.now[:notice] = "We have exactly #{@bookings.size} bookings available."
     else
       redirect_to '/'
     end
   end
 
+
+  def my_bookings
+    if user_signed_in?
+      @mybookings = current_user.bookings
+      flash.now[:notice] = "You've made exactly #{@mybookings.size} bookings."
+    end
+  end
+
+
   # GET /bookings/1 or /bookings/1.json
   def show
   end
+
 
   # GET /bookings/new
   def new
@@ -21,8 +32,6 @@ class BookingsController < ApplicationController
 
   def owner_booking
       @booking = Booking.find(params[:property_id])
-      
-    # if @bookings.property_id? 
   end
 
   # GET /bookings/1/edit
@@ -39,14 +48,15 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
+    @property  = Property.where(id: params[:booking][:property_id]).first
 
     if @booking.start_date && @booking.end_date
 
       if(@booking.start_date >= Date.today && @booking.end_date > @booking.start_date)
-        flash.now[:alert] = "correct format"
         logger.info "this is correct format....."
 
-        @booking.user_id=current_user.id
+        @booking.user_id = current_user.id
+        @booking.price = @property.price
 
         respond_to do |format|
           if @booking.save
@@ -58,11 +68,17 @@ class BookingsController < ApplicationController
           end
         end
 
-      else 
-        flash.now[:alert] = "wrong format"
+      else
+         flash[:notice] = "wrong format "
+         return redirect_to new_booking_path
+         # flash.now[:alert] = "wrong format"
 
         logger.info "this is wrong format....."
       end
+    else
+         # flash.now[:notice] = "please enter in correct format"
+         flash[:notice] = "please select something format"
+         redirect_to new_booking_path
     end
 
 

@@ -3,7 +3,16 @@
 <h2>only active properties</h2>
 
 <div id="properties">
-	<%= button_to 'sign out', destroy_user_session_path, method: :delete%>
+	<div>
+		<%= button_to 'sign out',destroy_user_session_path, method: :delete %>	
+	</div>
+	<br>
+	<div>
+		<%= button_to 'my bookings', my_bookings_path	, method: :get , message:'this user has' %>	
+	</div>
+
+	<br>
+	
 	<table>
 		<thead>
 			<tr>
