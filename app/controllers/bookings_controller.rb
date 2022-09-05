@@ -48,24 +48,27 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
-    @property  = Property.where(id: params[:booking][:property_id]).first
+    # @property  = Property.where(id: params[:booking][:property_id]).first
 
     if @booking.start_date && @booking.end_date
 
       if(@booking.start_date >= Date.today && @booking.end_date > @booking.start_date)
         logger.info "this is correct format....."
 
-        @booking.user_id = current_user.id
-        @booking.price = @property.price
+        if current_user.roles.last.role_name == "customer"
+          @booking.user_id = current_user.id
+          @booking.price = @booking.property.price
 
-        respond_to do |format|
-          if @booking.save
-            format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
-            format.json { render :show, status: :created, location: @booking }
-          else
-            format.html { render :new, status: :unprocessable_entity }
-            format.json { render json: @booking.errors, status: :unprocessable_entity }
+          respond_to do |format|
+            if @booking.save
+              format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
+              format.json { render :show, status: :created, location: @booking }
+            else
+              format.html { render :new, status: :unprocessable_entity }
+              format.json { render json: @booking.errors, status: :unprocessable_entity }
+            end
           end
+        else logger.info "owner can not create booking"
         end
 
       else

@@ -1,27 +1,31 @@
+<h1>   Property listing for  <b> <%= @user %></b></h1>
+<span class="badge bg-success">only active properties</span>
 
-<h1>Property listing here</h1>
-<h2>only active properties</h2>
 
 <div id="properties">
-	<div>
-		<%= button_to 'sign out',destroy_user_session_path, method: :delete %>	
-	</div>
-	<br>
-	<div>
-		<%= button_to 'my bookings', my_bookings_path	, method: :get , message:'this user has' %>	
-	</div>
 
 	<br>
+
+	<div  class="d-flex justify-content-between">
+  		<div class="mx-5">
+  			<%= button_to 'my bookings', my_bookings_path,:class => "btn btn-info"	, method: :get , message:'this user has' %>
+  		</div>
+  		<div class="mx-5">
+  			<%= button_to 'sign out',destroy_user_session_path,:class => "btn btn-danger", method: :delete %>
+  		</div>
+	</div>
 	
-	<table>
-		<thead>
+	<table class="table table-bordered">
+		<thead class="table-dark">
 			<tr>
-				<th>property name</th>
+				<th>property name  </th>
 				<th> address</th>
 				<th> price</th>
 				<th> pin code</th>
+				<th> book here </th>
 			</tr>
 		</thead>
+
 		<% @property.each do |p| %>
 		<tbody>
 			<tr>
@@ -29,7 +33,7 @@
 				<td><%= p.address %></td>
 				<td><%= p.price %></td>
 				<td><%= p.pin %></td>
-				<td><%= link_to "Book Now", new_booking_path(property_id: p.id) %></td>
+				<td><%= link_to "Book Now", new_booking_path(property_id_for_booking: p.id) %></td>
 			</tr>
 		</tbody>
 		<%end%>

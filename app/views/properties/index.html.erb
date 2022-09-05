@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
 <h1> <%= current_user.name %> Properties</h1>
-<%= button_to 'sign out', destroy_user_session_path, method: :delete%>
+<%= button_to 'sign out', destroy_user_session_path,:class => "btn btn-danger", method: :delete%>
 
 <!-- <div id="properties">
   <%# @properties.each do |property| %>
@@ -14,7 +14,7 @@
 
 </div> -->
 
-<table>
+<table class="table">
     <thead>
       <tr>
         <th>property name</th>
@@ -30,14 +30,14 @@
         <td><%= p.address %></td>
         <td><%= p.price %></td>
         <td><%= p.pin %></td>
-        <td><%= link_to "Show this property", p %></td>
-        <td><%= link_to "owner booking", owner_bookings_property_path(p.id) %></td>
+        <td><%= link_to "Show property", p,:class => "btn btn-sm btn-info" %></td>
+        <td><%= link_to "owner booking", owner_bookings_property_path(p.id),:class => "btn btn-sm btn-warning" %></td>
 
       </tr>
     </tbody>
     <%end%>
   </table>
-  <%= link_to "New property", new_property_path %>
+  <%= link_to "+New property", new_property_path,:class => "btn btn-success" %>
   
 
 

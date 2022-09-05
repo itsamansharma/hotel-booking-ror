@@ -21,11 +21,11 @@
     <%= form.label :end_date, style: "display: block" %>
     <%= form.date_field :end_date %>
   </div>
-  <p style="color: red;"><%= notice %></p>
+  <!-- <p style="color: red;"><%= notice %></p> -->
 
 
   <div>
-    <%= form.hidden_field :property_id, value: params[:property_id] %>
+    <%= form.hidden_field :property_id, value: params[:property_id_for_booking] %>
   </div>
   <div>
     <%#= form.hidden_field :price, value: params[:price]%>

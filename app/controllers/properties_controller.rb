@@ -12,6 +12,7 @@ class PropertiesController < ApplicationController
 
   def allprop
     @property = Property.where(inactive:false)
+    @user = current_user.name
   end
 
   # GET /properties/1 or /properties/1.json

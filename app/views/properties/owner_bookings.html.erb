@@ -1,11 +1,31 @@
 <h1>bookings of this property</h1>
 
 <div id="bookings">
-  <% @bookings.each do |booking| %>
-    <%= render booking %>
-    <p>
-      <%#= link_to "Show this booking", booking %>
-    </p>
-    ----------------------------
-  <% end %>
+
+
+  <table class="table">
+    <thead>
+      <tr class="table table-primary">
+        <td> Property Name </td>
+        <td> Price </td>
+        <td> From </td>
+        <td> TO </td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bookings.each do |b| %>
+      <tr>
+        <td> <%= b.property.property_name %> </td>
+        <td> <%= b.price %> </td>
+        <td> <%= b.start_date %> </td>
+        <td> <%= b.end_date %> </td>
+      </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+
+  <%= button_to 'back', properties_path,:class => "btn btn-info"  , method: :get%>
+
+   
 </div>

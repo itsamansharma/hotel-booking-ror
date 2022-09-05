@@ -12,11 +12,14 @@
 </div>
  -->
 
+<div class="flex">
+<%= link_to "New booking", allprop_path,:class => "btn btn-danger" %>
+</div>
 
 
-<table>
+<table class="table table-bordered">
     <thead>
-      <tr>
+      <tr class="table-danger">
         <th>property name</th>
         <th> price </th>
         <th> start date</th>
@@ -37,4 +40,3 @@
   </table>
 
 
-<%= link_to "New booking", new_booking_path %>

@@ -1,11 +1,9 @@
 <h1>Homes Page </h1>
 <p>click below to Sign in or Sign out</p>
 
- <% if  current_user %>
-    <%= button_to 'sign out', destroy_user_session_path, method: :delete%>
+<% if  current_user %>
+    <%= button_to 'sign out', destroy_user_session_path,:class=>"btn btn-danger", method: :delete%>
     <!-- <button>hi</button> -->
     <% else %>
-    <%= link_to 'sign in' ,new_user_session_path, method: :get %>
-    <% end %>
-
-
+    <%= link_to 'sign in' ,new_user_session_path,:class => "btn btn-success", method: :get %>
+<% end %>
